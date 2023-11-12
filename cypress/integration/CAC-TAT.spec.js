@@ -6,10 +6,13 @@ describe('Central de Atendimento ao Cliente TAT', () => {
         cy.visit('../src/index.html');
     })
 
-    it('Verifica o título da aplicação', () => {
-        // Checking the title
-        cy.title()
-            .should('be.equal', 'Central de Atendimento ao Cliente TAT');
+    // comando abaixo é para repetir algo por tantas vezes q vc definir
+    Cypress._.times(3, () => {
+        it('Verifica o título da aplicação', () => {
+            // Checking the title
+            cy.title()
+                .should('be.equal', 'Central de Atendimento ao Cliente TAT');
+        })
     })
 
     it('Preenche campos obrigatórios', () => {
@@ -71,9 +74,13 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     })
 
     it('exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', () => {
+        cy.clock()  //congela o relógio do computador
         cy.contains('.button', 'Enviar').click();
         cy.get('.error')
             .should('be.visible');
+        cy.tick(3000); //avança o relógio do computador em 3 segundos
+        cy.get('.error')
+            .should('not.be.visible');
     })
 
     it('envia o formuário com sucesso usando um comando customizado', () => {
@@ -156,6 +163,21 @@ describe('Central de Atendimento ao Cliente TAT', () => {
             .invoke('removeAttr', 'target')  // uso esse comando para carregar a próxima aba no msm browser (não fico com 2 abas/browsers)
             .click()
         cy.contains('CAC TAT - Política de privacidade').should('be.visible')
+    })
+
+    it.only('Faz uma requisção HTTP (REST)', () => {
+        cy.request('https://cac-tat.s3.eu-central-1.amazonaws.com/index.html')
+            .should(function (response) {
+                const { status, statusText, body } = response
+                expect(status).to.equal(200)
+                expect(statusText).to.equal("OK")
+                expect(body).to.include('CAC TAT')
+            })
+        cy.get('#cat')
+            .invoke('show')
+            .should('be.visible')
+        cy.get('#subtitle')
+            .invoke('text', 'Meu nome é Murillo Lopes de Oliveira')
     })
 
 })
