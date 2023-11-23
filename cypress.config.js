@@ -9,4 +9,5 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) { },
     specPattern: 'cypress/e2e/**/*.{js,jsx,ts,tsx}',
   },
+  video: false
 })
