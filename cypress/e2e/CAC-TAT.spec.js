@@ -22,7 +22,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
             .type('Murillo')
             .should('have.value', 'Murillo');
         cy.get('#lastName').type('Teste de Oliveira', 10);
-        cy.get('#email').type('testemail@test.com');
+        cy.get('#email').type('testemail@test.com', { log: false }); //não mostrar no log do teste
         cy.get('#open-text-area').type(mensagem, { delay: 0 });
         cy.contains('.button', 'Enviar').click();
 
