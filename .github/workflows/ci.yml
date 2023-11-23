@@ -11,5 +11,5 @@ jobs:
       - name: Checkout
         uses: cypress-io/github-action@v4.1.0
 
-      env:
-        config-file: cypress.config.js
+        env:
+          config-file: cypress.config.js
