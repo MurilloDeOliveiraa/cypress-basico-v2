@@ -165,7 +165,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
         cy.contains('CAC TAT - Política de privacidade').should('be.visible')
     })
 
-    it.only('Faz uma requisção HTTP (REST)', () => {
+    it('Faz uma requisção HTTP (REST)', () => {
         cy.request('https://cac-tat.s3.eu-central-1.amazonaws.com/index.html')
             .should(function (response) {
                 const { status, statusText, body } = response
