@@ -178,6 +178,8 @@ describe('Central de Atendimento ao Cliente TAT', () => {
             .should('be.visible')
         cy.get('#subtitle')
             .invoke('text', 'Meu nome é Murillo Lopes de Oliveira')
+            .should('have.text', "Meu nome é Murillo Lopes de Oliveira")
+            .should('be.visible')
     })
 
 })
